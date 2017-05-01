@@ -22,25 +22,30 @@ type ResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
 type Response = ?Object | string;
 
 type XHRInterceptor = {
-  requestSent: (
+  requestSent(
     id: number,
     url: string,
     method: string,
-    headers: Object) => void,
-  responseReceived: (
+    headers: Object
+  ): void,
+  responseReceived(
     id: number,
     url: string,
     status: number,
-    headers: Object) => void,
-  dataReceived: (
+    headers: Object
+  ): void,
+  dataReceived(
     id: number,
-    data: string) => void,
-  loadingFinished: (
+    data: string
+  ): void,
+  loadingFinished(
     id: number,
-    encodedDataLength: number) => void,
-  loadingFailed: (
+    encodedDataLength: number
+  ): void,
+  loadingFailed(
     id: number,
-    error: string) => void,
+    error: string
+  ): void,
 };
 
 const UNSENT = 0;
@@ -76,6 +81,7 @@ class XMLHttpRequestEventTarget extends EventTarget(...REQUEST_EVENTS) {
   onprogress: ?Function;
   ontimeout: ?Function;
   onerror: ?Function;
+  onabort: ?Function;
   onloadend: ?Function;
 }
 
@@ -104,6 +110,7 @@ class XMLHttpRequest extends EventTarget(...XHR_EVENTS) {
   onprogress: ?Function;
   ontimeout: ?Function;
   onerror: ?Function;
+  onabort: ?Function;
   onloadend: ?Function;
   onreadystatechange: ?Function;
 
@@ -112,11 +119,12 @@ class XMLHttpRequest extends EventTarget(...XHR_EVENTS) {
   status: number = 0;
   timeout: number = 0;
   responseURL: ?string;
+  withCredentials: boolean = false
 
   upload: XMLHttpRequestEventTarget = new XMLHttpRequestEventTarget();
 
   _requestId: ?number;
-  _subscriptions: [any];
+  _subscriptions: Array<*>;
 
   _aborted: boolean = false;
   _cachedResponse: Response;
@@ -494,6 +502,7 @@ class XMLHttpRequest extends EventTarget(...XHR_EVENTS) {
       incrementalEvents,
       this.timeout,
       this.__didCreateRequest.bind(this),
+      this.withCredentials
     );
   }
 

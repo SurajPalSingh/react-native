@@ -8,19 +8,22 @@
  *
  * @providesModule DocsLayout
  */
+'use strict';
 
 var DocsSidebar = require('DocsSidebar');
-var Header = require('Header');
+var EjectBanner = require('EjectBanner');
 var Footer = require('Footer');
+var Header = require('Header');
 var Marked = require('Marked');
-var React = require('React');
-var Site = require('Site');
 var Metadata = require('Metadata');
+var React = require('React');
+var PropTypes = require('prop-types');
+var Site = require('Site');
 
 var DocsLayout = React.createClass({
   childContextTypes: {
-    permalink: React.PropTypes.string,
-    version: React.PropTypes.string
+    permalink: PropTypes.string,
+    version: PropTypes.string
   },
 
   getChildContext: function() {
@@ -42,6 +45,7 @@ var DocsLayout = React.createClass({
           <div className="inner-content">
             <a id="content" />
             <Header level={1}>{metadata.title}</Header>
+            {(metadata.banner === 'ejected') ? <EjectBanner/> : null}
             <Marked>{content}</Marked>
             <div className="docs-prevnext">
               {metadata.previous && <a className="docs-prev" href={'docs/' + metadata.previous + '.html#content'}>&larr; Prev</a>}
