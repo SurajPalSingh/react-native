@@ -8,7 +8,7 @@
 -keepclassmembers class * {
     @com.facebook.proguard.annotations.DoNotStrip *;
 }
-
+-dontwarn android.text.StaticLayout
 -keepclassmembers @com.facebook.proguard.annotations.KeepGettersAndSetters class * {
   void set*(***);
   *** get*();
