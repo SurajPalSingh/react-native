@@ -968,8 +968,8 @@ public class ReactInstanceManager {
    */
   private ReactApplicationContext createReactContext(
       JavaScriptExecutor jsExecutor,
-      JSBundleLoader jsBundleLoader) {
-    Log.d(ReactConstants.TAG, "ReactInstanceManager.createReactContext()");
+      JSBundleLoader jsBundleLoader) throws InterruptedException{
+    Log.d(ReactConstants.TAG, "ReactInstanceManager.createReactContext(). This might throw InterruptedException");
     ReactMarker.logMarker(CREATE_REACT_CONTEXT_START);
     final ReactApplicationContext reactContext = new ReactApplicationContext(mApplicationContext);
 
