@@ -72,9 +72,9 @@ public class ReactQueueConfigurationImpl implements ReactQueueConfiguration {
     }
   }
 
-  public static ReactQueueConfigurationImpl create throws InterruptedException(
+  public static ReactQueueConfigurationImpl create (
       ReactQueueConfigurationSpec spec,
-      QueueThreadExceptionHandler exceptionHandler) {
+      QueueThreadExceptionHandler exceptionHandler) throws InterruptedException{
     Map<MessageQueueThreadSpec, MessageQueueThreadImpl> specsToThreads = MapBuilder.newHashMap();
 
     MessageQueueThreadSpec uiThreadSpec = MessageQueueThreadSpec.mainThreadSpec();

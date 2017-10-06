@@ -90,18 +90,18 @@ public class CatalystInstanceImpl implements CatalystInstance {
   private final HybridData mHybridData;
   private native static HybridData initHybrid();
 
-  private CatalystInstanceImpl throws InterruptedException(
+  private CatalystInstanceImpl(
       final ReactQueueConfigurationSpec reactQueueConfigurationSpec,
       final JavaScriptExecutor jsExecutor,
       final NativeModuleRegistry nativeModuleRegistry,
       final JSBundleLoader jsBundleLoader,
-      NativeModuleCallExceptionHandler nativeModuleCallExceptionHandler) {
+      NativeModuleCallExceptionHandler nativeModuleCallExceptionHandler) throws InterruptedException{
     Log.d(ReactConstants.TAG, "Initializing React Xplat Bridge.");
-    mHybridData = initHybrid();
-
     mReactQueueConfiguration = ReactQueueConfigurationImpl.create(
-        reactQueueConfigurationSpec,
-        new NativeExceptionHandler());
+                reactQueueConfigurationSpec,
+                new NativeExceptionHandler());
+
+    mHybridData = initHybrid();
     mBridgeIdleListeners = new CopyOnWriteArrayList<>();
     mNativeModuleRegistry = nativeModuleRegistry;
     mJSModuleRegistry = new JavaScriptModuleRegistry();

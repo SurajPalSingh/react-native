@@ -136,9 +136,9 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
     return mName;
   }
 
-  public static MessageQueueThreadImpl create throws InterruptedException(
+  public static MessageQueueThreadImpl create(
       MessageQueueThreadSpec spec,
-      QueueThreadExceptionHandler exceptionHandler) {
+      QueueThreadExceptionHandler exceptionHandler)  throws InterruptedException{
     switch (spec.getThreadType()) {
       case MAIN_UI:
         return createForMainThread(spec.getName(), exceptionHandler);
@@ -178,10 +178,10 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
    * running on it. Give it a name for easier debugging and optionally a suggested stack size.
    * When this method exits, the new MessageQueueThreadImpl is ready to receive events.
    */
-  private static MessageQueueThreadImpl startNewBackgroundThread throws InterruptedException(
+  private static MessageQueueThreadImpl startNewBackgroundThread (
       final String name,
       long stackSize,
-      QueueThreadExceptionHandler exceptionHandler) {
+      QueueThreadExceptionHandler exceptionHandler) throws InterruptedException{
     final SimpleSettableFuture<Looper> looperFuture = new SimpleSettableFuture<>();
     Thread bgThread = new Thread(null,
         new Runnable() {

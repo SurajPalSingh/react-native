@@ -99,7 +99,9 @@ public class SimpleSettableFuture<T> implements Future<T> {
   public @Nullable T getOrThrow() throws InterruptedException{
     try {
       return get();
-    } catch (InterruptedException | ExecutionException e) {
+    } catch (InterruptedException e) {
+      throw e;
+    } catch (ExecutionException e){
       throw new RuntimeException(e);
     }
   }

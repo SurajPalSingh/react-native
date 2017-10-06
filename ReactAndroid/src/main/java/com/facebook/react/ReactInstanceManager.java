@@ -841,7 +841,11 @@ public class ReactInstanceManager {
           } else {
             UiThreadUtil.runOnUiThread(setupReactContextRunnable);
           }
-        } catch (Exception e) {
+        }
+        catch (InterruptedException e){
+            mNativeModuleCallExceptionHandler.handleException(e);
+        }
+        catch (Exception e) {
           mDevSupportManager.handleException(e);
         }
       }
