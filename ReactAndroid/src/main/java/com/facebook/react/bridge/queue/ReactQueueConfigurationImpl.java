@@ -10,7 +10,7 @@
 package com.facebook.react.bridge.queue;
 
 import javax.annotation.Nullable;
-
+import java.lang.InterruptedException;
 import java.util.Map;
 
 import android.os.Looper;
@@ -72,7 +72,7 @@ public class ReactQueueConfigurationImpl implements ReactQueueConfiguration {
     }
   }
 
-  public static ReactQueueConfigurationImpl create(
+  public static ReactQueueConfigurationImpl create throws InterruptedException(
       ReactQueueConfigurationSpec spec,
       QueueThreadExceptionHandler exceptionHandler) {
     Map<MessageQueueThreadSpec, MessageQueueThreadImpl> specsToThreads = MapBuilder.newHashMap();

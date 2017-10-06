@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.lang.InterruptedException;
 
 /**
  * A super simple Future-like class that can safely notify another Thread when a value is ready.
@@ -95,7 +96,7 @@ public class SimpleSettableFuture<T> implements Future<T> {
    * Convenience wrapper for {@link #get()} that re-throws get()'s Exceptions as
    * RuntimeExceptions.
    */
-  public @Nullable T getOrThrow() {
+  public @Nullable T getOrThrow() throws InterruptedException{
     try {
       return get();
     } catch (InterruptedException | ExecutionException e) {
@@ -107,7 +108,7 @@ public class SimpleSettableFuture<T> implements Future<T> {
    * Convenience wrapper for {@link #get(long, TimeUnit)} that re-throws get()'s Exceptions as
    * RuntimeExceptions.
    */
-  public @Nullable T getOrThrow(long timeout, TimeUnit unit) {
+  public @Nullable T getOrThrow(long timeout, TimeUnit unit) throws InterruptedException{
     try {
       return get(timeout, unit);
     } catch (InterruptedException | ExecutionException | TimeoutException e) {

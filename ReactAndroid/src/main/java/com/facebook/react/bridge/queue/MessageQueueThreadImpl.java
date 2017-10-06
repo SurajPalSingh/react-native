@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 
 import android.os.Looper;
 import android.os.Process;
-
+import java.lang.InterruptedException;
 import com.facebook.common.logging.FLog;
 import com.facebook.proguard.annotations.DoNotStrip;
 import com.facebook.react.bridge.AssertionException;
@@ -136,7 +136,7 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
     return mName;
   }
 
-  public static MessageQueueThreadImpl create(
+  public static MessageQueueThreadImpl create throws InterruptedException(
       MessageQueueThreadSpec spec,
       QueueThreadExceptionHandler exceptionHandler) {
     switch (spec.getThreadType()) {
@@ -178,7 +178,7 @@ public class MessageQueueThreadImpl implements MessageQueueThread {
    * running on it. Give it a name for easier debugging and optionally a suggested stack size.
    * When this method exits, the new MessageQueueThreadImpl is ready to receive events.
    */
-  private static MessageQueueThreadImpl startNewBackgroundThread(
+  private static MessageQueueThreadImpl startNewBackgroundThread throws InterruptedException(
       final String name,
       long stackSize,
       QueueThreadExceptionHandler exceptionHandler) {

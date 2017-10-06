@@ -33,6 +33,7 @@ import com.facebook.react.common.ReactConstants;
 import com.facebook.react.common.annotations.VisibleForTesting;
 import com.facebook.systrace.Systrace;
 import com.facebook.systrace.TraceListener;
+import java.lang.InterruptedException;
 
 /**
  * This provides an implementation of the public CatalystInstance instance.  It is public because
@@ -89,7 +90,7 @@ public class CatalystInstanceImpl implements CatalystInstance {
   private final HybridData mHybridData;
   private native static HybridData initHybrid();
 
-  private CatalystInstanceImpl(
+  private CatalystInstanceImpl throws InterruptedException(
       final ReactQueueConfigurationSpec reactQueueConfigurationSpec,
       final JavaScriptExecutor jsExecutor,
       final NativeModuleRegistry nativeModuleRegistry,
@@ -565,7 +566,7 @@ public class CatalystInstanceImpl implements CatalystInstance {
       return this;
     }
 
-    public CatalystInstanceImpl build() {
+    public CatalystInstanceImpl build() throws InterruptedException{
       return new CatalystInstanceImpl(
           Assertions.assertNotNull(mReactQueueConfigurationSpec),
           Assertions.assertNotNull(mJSExecutor),
